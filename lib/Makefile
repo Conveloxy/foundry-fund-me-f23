@@ -22,7 +22,7 @@ build:; forge build
 
 zkbuild :; forge build --zksync
 
-test :; forge test
+test :;  forge test --fork-url $(SEPOLIA_RPC_URL)
 
 zktest :; foundryup-zksync && forge test --zksync && foundryup
 
@@ -35,7 +35,7 @@ anvil :; anvil -m 'test test test test test test test test test test test junk' 
 zk-anvil :; npx zksync-cli dev start
 
 deploy:
-	@forge script script/DeployFundMe.s.sol:DeployFundMe $(NETWORK_ARGS)
+	   forge script script/DeployFundMe.s.sol --rpc-url $(SEPOLIA_RPC_URL) --private-key $(PRIVATE_KEY) --broadcast
 
 NETWORK_ARGS := --rpc-url http://localhost:8545 --private-key $(DEFAULT_ANVIL_KEY) --broadcast
 
